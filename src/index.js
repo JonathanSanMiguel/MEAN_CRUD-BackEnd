@@ -1,9 +1,7 @@
-const express = require('express');
-const morgan = require('morgan');
+const mongo = require('./database')
+const app = require('./app')
 
-const app = express();
-app.use(morgan('dev'));
 
-app.listen(4000);
-
-console.log('Servidor en el puerto 4000');
+app.listen(app.get('PORT'), () => {
+    console.log('Servidor en el puerto 4000');
+});
