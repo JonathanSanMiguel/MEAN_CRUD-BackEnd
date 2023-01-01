@@ -8,34 +8,40 @@ const AllEmployees = async(req, res) => {
 
 
 // Obtener un employee
-const GetOneEmployee = (req, res) => {
-    
-    res.json('un empleado');
+const GetOneEmployee = async(req, res) => {
+    const empleado = await Employee.findById(req.params.id);
+    res.json(empleado);
 };
 
 
 // Crear un employee
 const CreateEmployee = async(req, res) => {
     // Crea un objeto con los parametros
-    const newEmpleado = new Employee(req.body)
-    // Guarda el objeto en la DB
-    await newEmpleado.save()
+    const newEmpleado = new Employee(req.body);
+    // Guarda el objeto en la DB.
+    await newEmpleado.save();
 
     res.send({
         msg: "Empleado creado"
-    })
+    });
 };
 
 
 // Actualizar un employee
-const UpdateEmployee = (req, res) => {
-    res.send('update')
+const UpdateEmployee = async(req, res) => {
+    await Employee.findByIdAndUpdate(req.params.id, req.body)
+    res.send({
+        msg: "Empleado Actualizado"
+    });
 };
 
 
 // Borrar un employee
-const DeleteEmployee = (req, res) => {
-    res.send('delete employee')
+const DeleteEmployee = async(req, res) => {
+    await Employee.findByIdAndDelete(req.params.id);
+    res.json({
+        msg: "Empleado borrado"
+    })
 };
 
 
