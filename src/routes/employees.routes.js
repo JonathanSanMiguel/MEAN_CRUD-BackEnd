@@ -7,16 +7,16 @@ const { AllEmployees, GetOneEmployee, CreateEmployee, UpdateEmployee, DeleteEmpl
 router.get('/employees', AllEmployees);
 
 // Obtener un employee
-router.get('/employee', GetOneEmployee);
+router.get('/employee/:id', GetOneEmployee);
 
 // Crear un empleado
-router.post('/create:id', CreateEmployee);
+router.post('/create', CreateEmployee);
 
 // Actualizar un employee
-router.put('update:id', UpdateEmployee)
+router.put('/update/:id', UpdateEmployee)
 
 // Borrar un empleado
-router.delete('/delete:id', DeleteEmployee)
+router.delete('/delete/:id', DeleteEmployee)
 
 
 module.exports = router

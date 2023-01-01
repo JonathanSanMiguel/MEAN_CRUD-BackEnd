@@ -1,22 +1,37 @@
+const Employee = require('../models/employee')
+
 // Obtener todos los employees
-const AllEmployees = (req, res) => {
-    res.send('hello')
+const AllEmployees = async(req, res) => {
+    const empleados = await Employee.find()
+    res.json( empleados )
 };
+
 
 // Obtener un employee
 const GetOneEmployee = (req, res) => {
-    res.send('one employee')
+    
+    res.json('un empleado');
 };
 
+
 // Crear un employee
-const CreateEmployee = (req, res) => {
-    res.send('create employee')
+const CreateEmployee = async(req, res) => {
+    // Crea un objeto con los parametros
+    const newEmpleado = new Employee(req.body)
+    // Guarda el objeto en la DB
+    await newEmpleado.save()
+
+    res.send({
+        msg: "Empleado creado"
+    })
 };
+
 
 // Actualizar un employee
 const UpdateEmployee = (req, res) => {
     res.send('update')
 };
+
 
 // Borrar un employee
 const DeleteEmployee = (req, res) => {

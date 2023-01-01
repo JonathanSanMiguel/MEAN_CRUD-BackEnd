@@ -7,6 +7,7 @@ const app = express();
 app.set('PORT', process.env.PORT || 4000)
 
 app.use(morgan('dev'));
+app.use(express.json());
 
 // routes
 app.use('/rest', require('./routes/employees.routes'));

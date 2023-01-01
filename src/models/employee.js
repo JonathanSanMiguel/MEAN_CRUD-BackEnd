@@ -10,4 +10,4 @@ const employeeSchema = new Schema({
     versionKey: false
 })
 
-model('Employee', employeeSchema)
+module.exports = model('Employee', employeeSchema)
