@@ -1,3 +1,4 @@
+const { response } = require('express');
 const Employee = require('../models/employee')
 
 // Obtener todos los employees
@@ -15,15 +16,36 @@ const GetOneEmployee = async(req, res) => {
 
 
 // Crear un employee
-const CreateEmployee = async(req, res) => {
-    // Crea un objeto con los parametros
-    const newEmpleado = new Employee(req.body);
-    // Guarda el objeto en la DB.
-    await newEmpleado.save();
+const CreateEmployee = async(req, res = response) => {
+    // Parametros del empleado
+    const { name, position, office, salary } = req.body
 
-    res.send({
-        msg: "Empleado creado"
-    });
+    try {
+        // Verificaion del Nombre
+        let empleado = await Employee.findOne({name})
+
+        // SI el empleado existe, termina el proceso
+        if (empleado) {
+            return res.status(400).json({
+                msg: "Usuario ya registrado"
+            })
+        }
+
+        // Crea un objeto con los parametros
+        const newEmpleado = new Employee(req.body);
+
+        // Guarda el objeto en la DB.
+        await newEmpleado.save();
+
+        // res if successful 
+        res.status(201).send({
+            msg: "Empleado creado"
+        });
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Someting was Wrong..."
+        })
+    }
 };
 
 
