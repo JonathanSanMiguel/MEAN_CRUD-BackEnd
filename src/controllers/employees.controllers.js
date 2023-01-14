@@ -27,6 +27,7 @@ const CreateEmployee = async(req, res = response) => {
         // SI el empleado existe, termina el proceso
         if (empleado) {
             return res.status(400).json({
+                state: false,
                 msg: "Usuario ya registrado"
             })
         }
@@ -39,10 +40,12 @@ const CreateEmployee = async(req, res = response) => {
 
         // res if successful 
         res.status(201).send({
+            state: true,
             msg: "Empleado creado"
         });
     } catch (error) {
         return res.status(500).json({
+            state: false,
             msg: "Someting was Wrong..."
         })
     }
